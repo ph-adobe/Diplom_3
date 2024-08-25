@@ -1,5 +1,4 @@
 import allure
-import pytest
 from data_for_tests import OrderData as Od
 from locators.main_page_locators import MainPageLocators as Mpl
 from locators.order_feed_locatorrs import OrderFeedLocators as Ofl

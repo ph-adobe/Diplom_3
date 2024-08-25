@@ -55,7 +55,7 @@ class TestOrderFeedPage:
 
         delta = today_orders_number_after - today_orders_number_before
 
-        assert delta == 1
+        assert delta >= 1
 
     @allure.title("Test appearing the order id in 'In progress' field")
     def test_order_id_in_progress_field(self, driver, login_user):

@@ -6,7 +6,7 @@ from locators.order_feed_locatorrs import OrderFeedLocators as Ofl
 from pages.main_page import MainPage
 from pages.order_feed import OrderFeedPage
 from urls import PageURL as Url
-from conftest import *
+
 
 class TestMainFunctionalities:
 

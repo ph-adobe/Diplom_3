@@ -1,5 +1,5 @@
 class PageURL:
-    MAIN_PAGE = "https://stellarburgers.nomoreparties.site/"
-    LOGIN_PAGE = "https://stellarburgers.nomoreparties.site/login"
-    FEED_PAGE = "https://stellarburgers.nomoreparties.site/feed"
-    FORGOT_PASSWORD_PAGE = "https://stellarburgers.nomoreparties.site/forgot-password"
+    MAIN_PAGE = "https://stellarburgers.nomoreparties.site"
+    LOGIN_PAGE = f"{MAIN_PAGE}/login"
+    FEED_PAGE = f"{MAIN_PAGE}/feed"
+    FORGOT_PASSWORD_PAGE = f"{MAIN_PAGE}/forgot-password"

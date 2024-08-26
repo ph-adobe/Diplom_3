@@ -1,10 +1,7 @@
 import allure
-from data_for_tests import OrderData as Od
-from locators.main_page_locators import MainPageLocators as Mpl
-from locators.order_feed_locatorrs import OrderFeedLocators as Ofl
+from helpers import GenerateOrderData as Od
 from pages.main_page import MainPage
 from pages.order_feed import OrderFeedPage
-from urls import PageURL as Url
 
 
 class TestMainFunctionalities:
@@ -12,19 +9,19 @@ class TestMainFunctionalities:
     @allure.title("Test opening constructor")
     def test_open_constructor(self, driver):
         main_page = MainPage(driver)
-        main_page.get_url(Url.FEED_PAGE)
-        main_page.check_presence_of_element(Ofl.ORDER_FEED_HEADER)
+        feed_page = OrderFeedPage(driver)
+        feed_page.get_order_feed_page()
         main_page.go_to_constructor()
-        element = main_page.check_presence_of_element(Mpl.MAKE_BURGER_HEADER)
+        element = main_page.check_presence_of_make_burger_header()
+
         assert element
 
     @allure.title("Test opening order feed")
     def test_open_order_feed(self, driver):
         main_page = MainPage(driver)
         order_feed_page = OrderFeedPage(driver)
-        main_page.check_presence_of_element(Mpl.MAKE_BURGER_HEADER)
-        main_page.open_order_feed()
-        main_page.check_presence_of_element(Ofl.ORDER_FEED_HEADER)
+        main_page.check_presence_of_make_burger_header()
+        order_feed_page.get_order_feed_page()
 
         assert "/feed" in order_feed_page.current_url
 
@@ -32,7 +29,7 @@ class TestMainFunctionalities:
     def test_open_ingredient_card(self, driver):
         main_page = MainPage(driver)
         main_page.click_on_element(Od.return_random_ingredient())
-        element = main_page.check_presence_of_element(Mpl.INGREDIENT_DETAILS)
+        element = main_page.check_presence_of_ingredient_details()
 
         assert element.is_displayed()
 
@@ -40,8 +37,8 @@ class TestMainFunctionalities:
     def test_ingredient_card_popup_close(self, driver):
         main_page = MainPage(driver)
         main_page.click_on_element(Od.return_random_ingredient())
-        element = main_page.check_presence_of_element(Mpl.INGREDIENT_DETAILS)
-        main_page.close_ingredient_pop_up_window(Mpl.INGREDIENT_DETAILS)
+        element = main_page.check_presence_of_ingredient_details()
+        main_page.close_ingredient_pop_up_window()
         result = not element.is_displayed()
 
         assert result
@@ -60,8 +57,8 @@ class TestMainFunctionalities:
     @allure.title("Test that an authenticated user can click on 'Make order' button")
     def test_make_order_by_authenticated_user(self, driver, login_user):
         main_page = MainPage(driver)
-        main_page.check_presence_of_element(Mpl.MAKE_BURGER_HEADER)
-        element = main_page.check_presence_of_element(Mpl.MAKE_ORDER_BUTTON)
+        main_page.check_presence_of_make_burger_header()
+        element = main_page.check_presence_of_make_order_button()
 
         assert "Оформить заказ" in element.text
 

@@ -26,5 +26,10 @@ class MyAccount(BasePage):
             order_ids.append(order_id)
         return order_ids
 
+    @allure.step("Check presence of the profile header")
+    def check_presence_of_profile_header(self):
+        element = self.check_presence_of_element(Mapl.PROFILE_HEADER)
+        return element
+
 
 

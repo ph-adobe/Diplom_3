@@ -1,8 +1,8 @@
 import pytest
 from api_usage import Users, Orders
 from pages.login_page import LoginPage
-from locators.main_page_locators import MainPageLocators as Mpl
-from data_for_tests import UserData, OrderData
+from data_for_tests import OrderData
+from helpers import GenerateUserData
 from factory import WebDriverFactory
 from urls import PageURL as Url
 
@@ -17,10 +17,10 @@ def driver(request):
 
 @pytest.fixture
 def login_data():
-    registration_data = UserData.generate_registration_data()
+    registration_data = GenerateUserData.generate_registration_data()
     api_users = Users()
     api_users.register_new_user(registration_data)
-    login_data = UserData.return_login_data(registration_data)
+    login_data = GenerateUserData.return_login_data(registration_data)
     yield login_data
     api_users.delete_user(login_data)
 

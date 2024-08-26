@@ -37,11 +37,8 @@ class Users:
     @allure.step("API: get access token")
     def get_access_token(self, login_data):
         status_code, response_body = self.login(login_data)
-        if status_code == 200:
-            access_token = response_body["accessToken"]
-            return access_token
-        else:
-            print("Что-то пошло не так, не удалось получить accessToken.")
+        access_token = response_body["accessToken"]
+        return access_token
 
     @allure.step("API: delete user")
     def delete_user(self, login_data):

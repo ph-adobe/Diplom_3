@@ -1,9 +1,8 @@
 import allure
-from data_for_tests import OrderData as Od
+from helpers import GenerateOrderData as Od
 from pages.main_page import MainPage
 from pages.my_account_page import MyAccount
 from pages.order_feed import OrderFeedPage
-from locators.order_feed_locatorrs import OrderFeedLocators as Ofl
 
 
 class TestOrderFeedPage:
@@ -12,7 +11,7 @@ class TestOrderFeedPage:
     def test_appearing_order_popup(self, driver):
         order_feed = OrderFeedPage(driver)
         order_feed.click_on_order()
-        element = order_feed.check_presence_of_element(Ofl.ORDER_POP_UP)
+        element = order_feed.check_presence_of_order_popup()
 
         assert element.is_displayed()
 
@@ -33,11 +32,10 @@ class TestOrderFeedPage:
     def test_increasing_orders_number_for_all_time(self, driver, login_user):
         main_page = MainPage(driver)
         order_feed = OrderFeedPage(driver)
-        order_feed.open_order_feed()
-        all_orders_number_before = int(order_feed.check_presence_of_element(Ofl.ORDERS_NUMBER_ALL_TIME).text)
+        all_orders_number_before = order_feed.get_number_of_orders_for_all_time()
         main_page.make_order(Od.return_ingredients_to_order())
         order_feed.open_order_feed()
-        all_orders_number_after = int(order_feed.check_presence_of_element(Ofl.ORDERS_NUMBER_ALL_TIME).text)
+        all_orders_number_after = order_feed.get_number_of_orders_for_all_time()
 
         delta = all_orders_number_after - all_orders_number_before
 
@@ -47,11 +45,10 @@ class TestOrderFeedPage:
     def test_increasing_orders_number_for_today(self, driver, login_user):
         main_page = MainPage(driver)
         order_feed = OrderFeedPage(driver)
-        order_feed.open_order_feed()
-        today_orders_number_before = int(order_feed.check_presence_of_element(Ofl.ORDERS_NUMBER_ALL_TODAY).text)
+        today_orders_number_before = order_feed.get_number_of_orders_for_today()
         main_page.make_order(Od.return_ingredients_to_order())
         order_feed.open_order_feed()
-        today_orders_number_after = int(order_feed.check_presence_of_element(Ofl.ORDERS_NUMBER_ALL_TODAY).text)
+        today_orders_number_after = order_feed.get_number_of_orders_for_today()
 
         delta = today_orders_number_after - today_orders_number_before
 
@@ -62,8 +59,8 @@ class TestOrderFeedPage:
         main_page = MainPage(driver)
         order_feed = OrderFeedPage(driver)
         order_id = main_page.make_order(Od.return_ingredients_to_order())
-        order_feed.open_order_feed()
-        in_progress_field = order_feed.check_presence_of_element(Ofl.ORDERS_IN_PROGRESS).text
+        order_feed.get_order_feed_page()
+        in_progress_field = order_feed.get_value_from_in_progress_field()
 
         assert order_id in in_progress_field
 

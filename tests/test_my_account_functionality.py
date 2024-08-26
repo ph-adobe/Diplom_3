@@ -1,6 +1,4 @@
 import allure
-from locators.my_account_page_locators import MyAccountPageLocators as Mal
-from locators.login_page_locators import LoginPageLocators as Lpl
 from pages.my_account_page import MyAccount
 from pages.login_page import LoginPage
 
@@ -10,7 +8,7 @@ class TestMyAccount:
     def test_go_to_my_account(self,  driver, login_user):
         my_account = MyAccount(driver)
         my_account.go_to_my_account()
-        element = my_account.check_presence_of_element(Mal.PROFILE_HEADER)
+        element = my_account.check_presence_of_profile_header()
 
         assert element.is_displayed()
 
@@ -27,7 +25,7 @@ class TestMyAccount:
         my_account = MyAccount(driver)
         login_page = LoginPage(driver)
         my_account.log_out()
-        element = login_page.check_presence_of_element(Lpl.ENTRY_HEADER)
+        element = login_page.check_presence_of_login_entry_header()
 
         assert element.is_displayed()
 

@@ -2,7 +2,6 @@ import allure
 from pages.base_page import BasePage
 from locators.main_page_locators import MainPageLocators as Mpl
 from urls import PageURL as Url
-import time
 
 
 class MainPage(BasePage):
@@ -18,9 +17,9 @@ class MainPage(BasePage):
         self.check_presence_of_element(Mpl.INGREDIENT_DETAILS)
 
     @allure.step("Close an ingredient popup")
-    def close_ingredient_pop_up_window(self, window_locator):
+    def close_ingredient_pop_up_window(self):
         self.click_on_element(Mpl.CLOSE_INGREDIENT_POPUP)
-        self.wait_for_closing(window_locator)
+        self.wait_for_closing(Mpl.INGREDIENT_DETAILS)
 
     @allure.step("Close an order popup")
     def close_order_pop_up_window(self):
@@ -47,6 +46,22 @@ class MainPage(BasePage):
         order_id = self.check_presence_of_element(Mpl.ORDER_ID).text
         self.close_order_pop_up_window()
         return order_id
+
+    @allure.step("Check presence of 'Ingredient details'")
+    def check_presence_of_ingredient_details(self):
+        element = self.check_presence_of_element(Mpl.INGREDIENT_DETAILS)
+        return element
+
+    @allure.step("Check presence of 'Make burger' header")
+    def check_presence_of_make_burger_header(self):
+        element = self.check_presence_of_element(Mpl.MAKE_BURGER_HEADER)
+        return element
+
+    @allure.step("Check presence of 'Make order' button")
+    def check_presence_of_make_order_button(self):
+        element = self.check_presence_of_element(Mpl.MAKE_ORDER_BUTTON)
+        return element
+
 
 
 
